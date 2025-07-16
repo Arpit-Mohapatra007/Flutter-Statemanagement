@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1013095811725",
+    "project_id": "mobx-reminders-dreadx",
+    "storage_bucket": "mobx-reminders-dreadx.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1013095811725:android:4c371e801dab46edc630c4",
+        "android_client_info": {
+          "package_name": "com.example.learning_mobx"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoY0wcJd_Kv8EpN051mb2HRi_HtcM_BU0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
