@@ -4,6 +4,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:learning_mobx/dialogs/show_auth_error.dart';
 import 'package:learning_mobx/firebase_options.dart';
 import 'package:learning_mobx/loading/loading_screen.dart';
+import 'package:learning_mobx/provider/auth_provider.dart';
+import 'package:learning_mobx/provider/reminders_provider.dart';
 import 'package:learning_mobx/state/app_state.dart';
 import 'package:learning_mobx/views/login_view.dart';
 import 'package:learning_mobx/views/register_view.dart';
@@ -18,7 +20,10 @@ void main() async{
   );
  runApp(
   Provider(
-    create: (_) => AppState()..initialize(),
+    create: (_) => AppState(
+      authProvider: FireBaseAuthProvider(),
+      remindersProvider: FirestoreRemindersProvider()
+    )..initialize(),
     child: const App()
     )
  );
