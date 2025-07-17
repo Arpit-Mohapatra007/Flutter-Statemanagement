@@ -65,6 +65,7 @@ abstract class _AppState with Store {
     }
   }
 
+  @action
   Future<bool> deleteAccount() async {
     isLoading = true;
     final userId = authProvider.userId;

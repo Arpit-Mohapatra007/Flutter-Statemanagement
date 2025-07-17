@@ -100,6 +100,16 @@ mixin _$AppState on _AppState, Store {
     return _$deleteAsyncAction.run(() => super.delete(reminder));
   }
 
+  late final _$deleteAccountAsyncAction = AsyncAction(
+    '_AppState.deleteAccount',
+    context: context,
+  );
+
+  @override
+  Future<bool> deleteAccount() {
+    return _$deleteAccountAsyncAction.run(() => super.deleteAccount());
+  }
+
   late final _$logOutAsyncAction = AsyncAction(
     '_AppState.logOut',
     context: context,
