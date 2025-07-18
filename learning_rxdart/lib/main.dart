@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:learning_rxdart/views/home_page.dart';
 
 void main() {
  runApp(
@@ -24,30 +23,4 @@ class App extends StatelessWidget {
       home: const HomePage(),
     );
   }
-}
-
-class HomePage extends HookWidget {
- const HomePage({super.key});
-
- @override
- Widget build(BuildContext context) {
-final subject = useMemoized(()=>BehaviorSubject<String>(),[key]);
-useEffect(()=>subject.close, [subject]);
-
-  return Scaffold(
-   appBar: AppBar(
-    title: StreamBuilder<String>(
-        stream: subject.distinct().debounceTime(const Duration(seconds: 1)), 
-        initialData: 'Please start typing...',
-        builder: (context, snapshot) => Text(snapshot.requireData)
-        ),
-   ),
-   body: Padding(
-     padding: const EdgeInsets.all(8.0),
-     child: TextField(
-      onChanged: subject.sink.add,
-     ),
-   )
-  );
- }
 }
