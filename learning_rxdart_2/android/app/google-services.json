@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "940788263485",
+    "project_id": "contactbook-dreadx",
+    "storage_bucket": "contactbook-dreadx.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:940788263485:android:37c7708a46950fd0121854",
+        "android_client_info": {
+          "package_name": "com.example.learning_rxdart_2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxHW7qTrROSTPAerCdtMJxe-0scFlqHEQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
