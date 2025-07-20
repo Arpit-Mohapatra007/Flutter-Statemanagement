@@ -7,8 +7,6 @@ void main() {
  );
 }
 
-
-
 class App extends StatelessWidget {
   const App({
     super.key,
@@ -27,77 +25,53 @@ class App extends StatelessWidget {
   }
 }
 
-enum City {
-  waterloo,
-  stalingrad,
-  berlin,
-  paris,
-  auschwitz,
-}
+const names = [
+  'Alice',
+  'Bob',
+  'Charlie',
+  'David',
+  'Eve',
+  'Frank',
+  'Grace',
+  'Heidi',
+  'Ivan',
+  'Judy',
+];
 
-typedef WeatherEmojy = String;
+final tickerProvider = StreamProvider((ref)=>
+ Stream.periodic(const Duration(seconds:1),(i)=>i+1)
+,);
 
-Future<WeatherEmojy> getWeather(City city){
-  // Simulate a network call
-  return Future.delayed(
-    const Duration(seconds: 1),
-    () =>{
-      City.waterloo: '🌧️',
-      City.stalingrad: '❄️',
-      City.berlin: '☀️',
-      City.paris: '🌤️',
-      City.auschwitz: '🌪️',
-    }[city]!,
-  );
-}
-
-const unknownWeatherEmojy = '🤷‍♂️';
-
-final currentCityProvider = StateProvider<City?>((ref)=>null,);
-final weatherProvider = FutureProvider((ref){
-  final city = ref.watch(currentCityProvider);
-  if (city == null) {
-    return unknownWeatherEmojy;
-  }
-  return getWeather(city);
-});
+final namesProvider = StreamProvider((ref)=>
+  // ignore: deprecated_member_use
+  ref.watch(tickerProvider.stream).map((count)=>
+   names.getRange(0, count)
+));
 
 class HomePage extends ConsumerWidget {
  const HomePage({super.key});
 
  @override
  Widget build(BuildContext context, WidgetRef ref) {
-  final currentWeather = ref.watch(weatherProvider);
+  final names = ref.watch(namesProvider);
   return Scaffold(
    appBar: AppBar(
-    title: const Text('Weather'),
+    title: const Text('Stream Provider'),
    ),
-   body: Column(
-    children: [
-      currentWeather.when(
-        data: (data) => Text(data as String, style: const TextStyle(fontSize: 40),),
-        loading: () => const CircularProgressIndicator(),
-        error: (_,__)=> const Text('FAT BOY 💣 DROPPED HERE!!')
-      ),
-      const SizedBox(height: 20),
-      Expanded(
-        child: ListView.builder(
-          itemCount: City.values.length,
-          itemBuilder: (context, index){
-            final city = City.values[index];
-            final isSelected = city == ref.watch(currentCityProvider);
-            return ListTile(
-              title: Text(city.name),
-              trailing: isSelected ? const Icon(Icons.check) : null,
-              onTap: (){
-                ref.read(currentCityProvider.notifier).state = city;
-              },
-            );
-          }
-        )
-      )
-    ]
-   ),
+   body: names.when(
+    data: (names){
+      return ListView.builder(
+        itemCount: names.length,
+        itemBuilder: (context,index){
+          return ListTile(
+            title: Text(names.elementAt(index)),
+          );
+        }
+        );
+    }, 
+    error: (error, stack)=> Center(child: Text('Reached the end of the list')),
+    loading: ()=> const Center(child: CircularProgressIndicator()),
+    ),
   );
  }
 }
